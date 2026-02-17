@@ -1,0 +1,276 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AUDIO-ELITE // PROTOCOL 5.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-red: #ff003c;
+            --neon-blue: #00f3ff;
+            --bg-black: #0a0a0a;
+            --panel-bg: #151515;
+            --metal: #2a2a2a;
+            --text-main: #e0e0e0;
+        }
+
+        /* Estilo Rudo Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            background-color: var(--bg-black); 
+            color: var(--text-main); 
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 2px 2px, #1a1a1a 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+
+        h1, h2, .price, .logo { font-family: 'Orbitron', sans-serif; text-transform: uppercase; }
+
+        /* Notificación Glitch */
+        #toast {
+            position: fixed; top: 0; width: 100%; background: var(--neon-red);
+            color: white; padding: 10px; text-align: center; font-weight: 900;
+            z-index: 10000; transform: translateY(-100%); transition: 0.3s;
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        #toast.show { transform: translateY(0); }
+
+        /* Navbar Industrial */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(0,0,0,0.9);
+            border-bottom: 3px solid var(--metal); position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { color: var(--neon-red); font-weight: 900; font-size: 1.2rem; letter-spacing: -1px; }
+        .logo span { color: white; border: 1px solid white; padding: 0 5px; margin-left: 5px; }
+
+        .cart-trigger {
+            background: var(--neon-red); border: none; color: white;
+            padding: 8px 15px; font-weight: 900; cursor: pointer;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        }
+
+        /* Grid de Combate (Main Content) */
+        main {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px; padding: 40px 5%; max-width: 1400px; margin: 0 auto;
+        }
+
+        /* Galería Táctica */
+        .visual-system { position: relative; }
+        .main-display {
+            width: 100%; aspect-ratio: 1/1; background: var(--panel-bg);
+            border: 2px solid var(--metal); position: relative; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .main-display img {
+            width: 90%; height: 90%; object-fit: contain;
+            transition: transform 0.2s cubic-bezier(0.1, 0.7, 1.0, 0.1);
+        }
+        .main-display::before {
+            content: "SCANNING..."; position: absolute; top: 10px; left: 10px;
+            font-size: 0.6rem; color: var(--neon-red); z-index: 2;
+        }
+
+        .thumb-grid {
+            display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-top: 10px;
+        }
+        .thumb-grid img {
+            width: 100%; aspect-ratio: 1/1; object-fit: cover;
+            border: 1px solid var(--metal); cursor: pointer; opacity: 0.5;
+        }
+        .thumb-grid img.active { border-color: var(--neon-red); opacity: 1; transform: scale(0.95); }
+
+        /* Info de Producto */
+        .specs-system { padding: 20px; border: 1px solid var(--metal); background: rgba(255,255,255,0.02); }
+        .status-tag { color: var(--neon-blue); font-size: 0.8rem; margin-bottom: 10px; }
+        
+        h1 { font-size: 2.5rem; margin-bottom: 20px; color: white; line-height: 1; }
+        
+        .price-engine {
+            background: var(--metal); padding: 20px; margin: 20px 0;
+            border-left: 5px solid var(--neon-red);
+        }
+        .price { font-size: 3.5rem; color: var(--neon-red); display: block; }
+        .old-price { text-decoration: line-through; color: #555; font-size: 1.2rem; }
+
+        .data-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 30px 0;
+        }
+        .data-cell {
+            border: 1px solid #333; padding: 10px; background: black;
+        }
+        .data-cell span { display: block; font-size: 0.6rem; color: #666; }
+
+        .btn-deploy {
+            width: 100%; padding: 25px; background: var(--neon-red);
+            color: white; border: none; font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem; font-weight: 900; cursor: pointer;
+            clip-path: polygon(0 0, 95% 0, 100% 30%, 100% 100%, 5% 100%, 0 70%);
+            transition: 0.2s;
+        }
+        .btn-deploy:hover { background: white; color: var(--neon-red); transform: translateY(-3px); }
+
+        /* Carrito Industrial */
+        .side-panel {
+            position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px;
+            height: 100vh; background: #000; border-left: 4px solid var(--neon-red);
+            z-index: 2000; transition: 0.4s; padding: 30px;
+        }
+        .side-panel.open { right: 0; }
+        
+        .cart-item {
+            display: flex; gap: 15px; align-items: center; border-bottom: 1px solid var(--metal);
+            padding: 15px 0;
+        }
+        .cart-item img { width: 70px; border: 1px solid var(--neon-red); }
+
+        .btn-confirm {
+            display: block; width: 100%; padding: 20px; background: #22c55e;
+            color: black; text-align: center; text-decoration: none;
+            font-weight: 900; margin-top: 20px; text-transform: uppercase;
+        }
+
+        .overlay {
+            position: fixed; inset: 0; background: rgba(255,0,0,0.1);
+            backdrop-filter: blur(5px); display: none; z-index: 1500;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .price { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="toast">SYSTEM: UNIT ADDED TO DEPLOYMENT</div>
+
+<nav>
+    <div class="logo">AUDIO-ELITE // <span>PROTOCOL</span></div>
+    <button class="cart-trigger" onclick="toggleCart()">CART [ <span id="badge">0</span> ]</button>
+</nav>
+
+<main>
+    <section class="visual-system">
+        <div class="main-display" onmousemove="zoom(event)" onmouseleave="resetZoom()">
+            <img src="https://i.postimg.cc/Pr8SQDHy/D-NQ-NP-2X-886070-MLA101785468536-122025-F.webp" id="featured">
+        </div>
+        <div class="thumb-grid">
+            <img src="https://i.postimg.cc/Pr8SQDHy/D-NQ-NP-2X-886070-MLA101785468536-122025-F.webp" class="active" onclick="swap(this)">
+            <img src="https://i.postimg.cc/vZF3qm8j/1.webp" onclick="swap(this)">
+            <img src="https://i.postimg.cc/DwkBjzfp/2.webp" onclick="swap(this)">
+            <img src="https://i.postimg.cc/t4Q2SgRm/3.webp" onclick="swap(this)">
+            <img src="https://i.postimg.cc/FH5DWKFT/4.webp" onclick="swap(this)">
+            <img src="https://i.postimg.cc/pLbqGdVC/5.webp" onclick="swap(this)">
+            <img src="https://i.postimg.cc/3x5nSwrZ/6.webp" onclick="swap(this)">
+            <img src="https://i.postimg.cc/DwkBjzfB/7.webp" onclick="swap(this)">
+            <img src="https://i.postimg.cc/4NhWQcG2/8.webp" onclick="swap(this)">
+            <img src="https://i.postimg.cc/15NvrFSC/9.webp" onclick="swap(this)">
+            <img src="https://i.postimg.cc/yYSLyRKb/10.webp" onclick="swap(this)">
+            <img src="https://i.postimg.cc/CLfcs80c/11.webp" onclick="swap(this)">
+        </div>
+    </section>
+
+    <section class="specs-system">
+        <div class="status-tag">● OPERATIONAL_UNIT_ONLINE</div>
+        <h1>ELITE-HYBRID <br>CORE v.5</h1>
+        
+        <div class="price-engine">
+            <span class="old-price">MSRP: $499</span>
+            <span class="price">$250</span>
+        </div>
+
+        <p style="font-size: 0.9rem; color: #888; border-left: 2px solid #444; padding-left: 10px;">
+            Arquitectura de sonido balanceada. Frecuencias bajas reforzadas para entornos de alto impacto. 
+            Resistencia estructural reforzada.
+        </p>
+
+        <div class="data-grid">
+            <div class="data-cell"><span>BATT_LIFE</span>4H_MAX</div>
+            <div class="data-cell"><span>SIGNAL</span>BT_4.3_STABLE</div>
+            <div class="data-cell"><span>ARMOR</span>IPX5_RATED</div>
+            <div class="data-cell"><span>AUDIO</span> in-ear</div>
+        </div>
+
+        <button class="btn-deploy" onclick="add()">ADD TO CART</button>
+    </section>
+</main>
+
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+<div class="side-panel" id="panel">
+    <h2 style="border-bottom: 2px solid var(--neon-red); padding-bottom: 10px;">MANIFEST</h2>
+    <div id="cart-content" style="margin: 20px 0;">
+        <p style="color: #444;">NO UNITS ASSIGNED</p>
+    </div>
+    <div style="margin-top: auto; border-top: 1px solid var(--metal); padding-top: 20px;">
+        <h3 id="total-val">TOTAL: $0</h3>
+        <a href="#" class="btn-confirm" onclick="checkout()">EXECUTE ORDER [WA]</a>
+    </div>
+</div>
+
+<script>
+    let count = 0;
+    const price = 250;
+
+    function zoom(e) {
+        const img = document.getElementById("featured");
+        const x = (e.offsetX / e.target.offsetWidth) * 100;
+        const y = (e.offsetY / e.target.offsetHeight) * 100;
+        img.style.transformOrigin = `${x}% ${y}%`;
+        img.style.transform = "scale(2.5)";
+    }
+
+    function resetZoom() {
+        document.getElementById("featured").style.transform = "scale(1)";
+    }
+
+    function swap(el) {
+        document.getElementById('featured').src = el.src;
+        document.querySelectorAll('.thumb-grid img').forEach(i => i.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    function toggleCart() {
+        document.getElementById('panel').classList.toggle('open');
+        document.getElementById('overlay').style.display = 
+            document.getElementById('panel').classList.contains('open') ? 'block' : 'none';
+    }
+
+    function add() {
+        count++;
+        update();
+        const t = document.getElementById('toast');
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    function update() {
+        document.getElementById('badge').innerText = count;
+        const list = document.getElementById('cart-content');
+        document.getElementById('total-val').innerText = `TOTAL: $${count * price}`;
+        
+        if(count > 0) {
+            list.innerHTML = `
+                <div class="cart-item">
+                    <img src="${document.getElementById('featured').src}">
+                    <div>
+                        <div style="font-weight:900">ELITE-HYBRID</div>
+                        <div style="color:var(--neon-red)">QTY: ${count}</div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    function checkout() {
+        if(count === 0) return;
+        const msg = `ORDEN PROTOCOL 5.0%0A-----------------%0AUNIDADES: ${count}%0ATOTAL: $${count*price} MXN`;
+        window.open(`https://wa.me/522204891875?text=${msg}`);
+    }
+</script>
+
+</body>
+</html>
