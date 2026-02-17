@@ -1,0 +1,396 @@
+html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot CSOS - Interfaz Interactiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a1a2e;
+            --primary-color: #00d4ff;
+            --accent-red: #ff4d4d;
+            --accent-blue: #4d94ff;
+            --text-color: #e0e0e0;
+            --terminal-green: #0f0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Press Start 2P', cursive;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Efecto de monitor antiguo */
+        .terminal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 0px var(--accent-blue);
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* Sección del Robot */
+        .character-display {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .pixel-border {
+            border: 6px solid #fff;
+            padding: 20px;
+            background: #0f3460;
+            box-shadow: 8px 8px 0px #000;
+            display: inline-block;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        #robot-img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            image-rendering: pixelated; 
+            transition: transform 0.3s ease;
+        }
+
+        /* Animaciones Mejoradas */
+        .anim-atacar { animation: shake 0.15s infinite; filter: drop-shadow(0 0 25px var(--accent-red)); }
+        .anim-defensa { filter: drop-shadow(0 0 25px var(--accent-blue)); transform: scale(1.05) translateY(-5px); }
+        .anim-scan { animation: scanline 2s linear infinite; }
+        
+        @keyframes shake {
+            0% { transform: translate(2px, 2px); }
+            50% { transform: translate(-2px, -2px); }
+            100% { transform: translate(2px, 2px); }
+        }
+        @keyframes scanline {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* Consola de Comandos */
+        .console-box {
+            flex: 1;
+            min-width: 350px;
+            background: #000;
+            border: 4px solid #333;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .screen {
+            height: 150px;
+            color: var(--terminal-green);
+            font-size: 0.7rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #222;
+            line-height: 1.6;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #111;
+            padding: 10px;
+            border: 1px solid #333;
+        }
+
+        .prompt { color: var(--terminal-green); animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        #command-input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            outline: none;
+            width: 100%;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .command-hint {
+            font-size: 0.5rem;
+            margin-top: 15px;
+            color: #aaa;
+            line-height: 2;
+            margin-bottom: 15px;
+            background: #111;
+            padding: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .command-hint code { color: var(--primary-color); cursor: pointer; transition: color 0.2s; }
+        .command-hint code:hover { color: #fff; }
+
+        .pixel-btn {
+            background-color: var(--primary-color);
+            color: #000;
+            border: 4px solid #fff;
+            padding: 12px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.1s, background-color 0.3s;
+            box-shadow: 4px 4px 0px #333;
+            margin-top: auto;
+        }
+
+        .pixel-btn:hover { background-color: var(--accent-blue); color: #fff; transform: translate(-2px, -2px); box-shadow: 6px 6px 0px #333; }
+        .pixel-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #333; }
+
+        /* Inventario Interactivo */
+        .inventory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; width: 100%; }
+        .item { background: #16213e; border: 3px solid #4e4e4e; padding: 10px; text-align: center; font-size: 0.5rem; cursor: pointer; transition: 0.2s; }
+        .item:hover { border-color: var(--primary-color); background: #1f305e; transform: translateY(-2px); }
+
+    </style>
+</head>
+<body>
+
+    <div class="terminal-overlay"></div>
+
+    <header>
+        <h1>ROBOT CSOS</h1>
+        <p style="font-size: 0.6rem; color: var(--primary-color);">SISTEMA DE CONTROL INTERACTIVO V2.0</p>
+    </header>
+
+    <main class="container">
+        <section class="character-display">
+            <div class="pixel-border" id="robot-container">
+                <img src="Gemini_Generated_Image_feurc3feurc3feur.jpg" alt="Robot CSOS" id="robot-img">
+            </div>
+            <div class="inventory-grid">
+                <div class="item" onclick="scanItem('arduino')">ARDUINO UNO</div>
+                <div class="item" onclick="scanItem('servos')">3X SERVOS</div>
+                <div class="item" onclick="scanItem('swords')">SWORDS</div>
+            </div>
+        </section>
+
+        <section class="console-box">
+            <div id="display-screen" class="screen">
+                > INITIALIZING CORTEX... [OK]<br>
+                > SYSTEM READY. WAITING FOR INPUT_
+            </div>
+            
+            <div class="input-area">
+                <span class="prompt">></span>
+                <input type="text" id="command-input" placeholder="Escribe comando..." autofocus autocomplete="off">
+            </div>
+
+            <div class="command-hint" id="hints">
+                RUTINAS DE COMBATE:<br>
+                - <code onclick="autoFill('digitalWrite(ROJA, HIGH);')">digitalWrite(ROJA, HIGH);</code><br>
+                - <code onclick="autoFill('digitalWrite(AZUL, HIGH);')">digitalWrite(AZUL, HIGH);</code><br>
+                - <code onclick="autoFill('servo.write(90);')">servo.write(90);</code><br>
+                - <code onclick="autoFill('robot.reset();')">robot.reset();</code>
+            </div>
+
+            <button id="btn-descargar" class="pixel-btn">⬇ EXPORTAR .INO</button>
+        </section>
+    </main>
+
+    <script>
+        const input = document.getElementById('command-input');
+        const screen = document.getElementById('display-screen');
+        const robotImg = document.getElementById('robot-img');
+        const btnDescargar = document.getElementById('btn-descargar');
+        
+        // Historial de comandos
+        let commandHistory = [];
+        let historyIndex = -1;
+
+        // --- SISTEMA DE AUDIO WEB (Sintetizador 8-bit) ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playTone(freq, type, duration, vol = 0.1) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function sfxSuccess() { playTone(600, 'square', 0.1); setTimeout(() => playTone(800, 'square', 0.15), 100); }
+        function sfxError() { playTone(150, 'sawtooth', 0.3, 0.2); }
+        function sfxType() { playTone(400 + Math.random() * 200, 'square', 0.05, 0.02); }
+        function sfxAttack() { playTone(200, 'sawtooth', 0.1); setTimeout(() => playTone(100, 'sawtooth', 0.2), 100); }
+        function sfxShield() { playTone(400, 'sine', 0.4, 0.2); }
+
+        // --- MÁQUINA DE ESCRIBIR EN CONSOLA ---
+        let isTyping = false;
+        function typeWriterEffect(text, callback) {
+            if (isTyping) return;
+            isTyping = true;
+            input.disabled = true;
+            
+            screen.innerHTML += `<br><span style="color: #0f0;">> </span><span id="typing-span"></span>`;
+            const span = document.getElementById('typing-span');
+            span.removeAttribute('id'); // para el siguiente
+            
+            let i = 0;
+            function typeNext() {
+                if (i < text.length) {
+                    span.innerHTML += text.charAt(i);
+                    if (text.charAt(i) !== ' ') sfxType();
+                    i++;
+                    screen.scrollTop = screen.scrollHeight;
+                    setTimeout(typeNext, 25); // Velocidad de escritura
+                } else {
+                    isTyping = false;
+                    input.disabled = false;
+                    input.focus();
+                    if (callback) callback();
+                }
+            }
+            typeNext();
+        }
+
+        // Auto-completar al hacer clic en las pistas
+        function autoFill(cmd) {
+            input.value = cmd;
+            input.focus();
+            playTone(800, 'sine', 0.05);
+        }
+
+        // Navegación por historial
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const code = input.value.trim();
+                if (code !== "" && !isTyping) {
+                    commandHistory.push(code);
+                    historyIndex = commandHistory.length;
+                    
+                    screen.innerHTML += `<br><span style="color: #fff">> ${code}</span>`;
+                    executeCode(code);
+                }
+                input.value = '';
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    input.value = commandHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    input.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = commandHistory.length;
+                    input.value = '';
+                }
+            }
+        });
+
+        // Inventario interactivo
+        function scanItem(item) {
+            if(isTyping) return;
+            let msg = "";
+            robotImg.className = 'anim-scan';
+            setTimeout(() => robotImg.className = '', 1000);
+
+            if(item === 'arduino') msg = "ESCANEO: Cerebro ATmega328P detectado. Estado Óptimo.";
+            if(item === 'servos') msg = "ESCANEO: 3 Microservos SG90 conectados en Pines PWM 3, 5 y 6.";
+            if(item === 'swords') msg = "ESCANEO: Espada Roja (Pin 9), Espada Azul (Pin 10). Módulos listos.";
+            
+            playTone(900, 'sine', 0.1);
+            typeWriterEffect(msg);
+        }
+
+        // Analizador de Código
+        function executeCode(code) {
+            const cleanCode = code.replace(/\s+/g, '').toLowerCase();
+            
+            robotImg.classList.remove('anim-atacar', 'anim-defensa');
+            robotImg.style.transform = "rotate(0deg) translateY(0px) scale(1)";
+            void robotImg.offsetWidth; // Reflow
+            
+            let response = "";
+
+            if (cleanCode.includes('digitalwrite(roja,high)')) {
+                response = "PIN 9 ENERGIZADO. ¡MODO ATAQUE ACTIVADO!";
+                typeWriterEffect(response, () => {
+                    robotImg.classList.add('anim-atacar');
+                    sfxAttack();
+                });
+            } 
+            else if (cleanCode.includes('digitalwrite(azul,high)')) {
+                response = "PIN 10 ENERGIZADO. ¡ESCUDO DE ENERGÍA ACTIVO!";
+                typeWriterEffect(response, () => {
+                    robotImg.classList.add('anim-defensa');
+                    sfxShield();
+                });
+            }
+            else if (cleanCode.includes('servo.write(90)')) {
+                response = "SERVOS A 90 GRADOS. CAMBIO DE POSTURA.";
+                typeWriterEffect(response, () => {
+                    robotImg.style.transform = "rotate(15deg) translateY(-10px)";
+                    sfxSuccess();
+                });
+            }
+            else if (cleanCode.includes('robot.reset()')) {
+                response = "REINICIANDO VARIABLES... CSOS EN ESPERA.";
+                typeWriterEffect(response, () => sfxSuccess());
+            }
+            else {
+                response = "ERROR DE SINTAXIS: COMANDO NO RECONOCIDO.";
+                typeWriterEffect(response, () => sfxError());
+            }
+        }
+
+        // Botón de Descarga
+        btnDescargar.addEventListener('click', () => {
+            if(isTyping) return;
+            sfxSuccess();
+            const arduinoCode = `// CÓDIGO GENERADO PARA CSOS ROBOT\n#include <Servo.h>\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  // Tu código de combate aquí\n}`;
+            const blob = new Blob([arduinoCode], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'CSOS_Interact.ino';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url); 
+            
+            typeWriterEffect("EXPORTANDO ARCHIVO .INO A DISCO LOCAL... COMPLETADO.");
+        });
+    </script>
+</body>
+</html>
