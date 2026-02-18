@@ -3,11 +3,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>M25 ARMOR | El Sonido del Futuro - $250 MXN</title>
-    <meta name="description" content="Audífonos M25: Bluetooth 5.3, IPX7 y Power Bank. Diseño de ciencia ficción por solo $250 MXN.">
-    <meta property="og:title" content="M25 ARMOR | Audio Tech">
+    <title>M25 ARMOR | Audífonos Bluetooth 5.3 Sci-Fi - $250 MXN</title>
+    <meta name="description" content="Domina el sonido con los M25 Armor. Diseño mecánico, Bluetooth 5.3, IPX7 y Power Bank integrado. Oferta exclusiva: $250 MXN. Envío a todo México.">
+    
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="M25 ARMOR Store">
+    <meta property="og:title" content="M25 ARMOR | El Sonido del Futuro">
+    <meta property="og:description" content="⚠️ OFERTA: $250 MXN. Diseño de armadura, carga para celular y sonido 360°. ¡Pide los tuyos aquí!">
+    <meta property="og:url" content="https://tu-sitio.com/">
     <meta property="og:image" content="https://i.postimg.cc/YqPgCDmj/21.webp">
-    <meta property="og:description" content="Compra por WhatsApp. Envío rápido.">
+    <meta property="product:price:amount" content="250">
+    <meta property="product:price:currency" content="MXN">
+    <meta property="product:availability" content="instock">
+    <meta name="theme-color" content="#00f3ff">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "Auriculares Inalámbricos M25 Armor",
+      "image": "https://i.postimg.cc/YqPgCDmj/21.webp",
+      "description": "Diseño mecánico de ciencia ficción, Bluetooth 5.3 y Power Bank de emergencia.",
+      "brand": {"@type": "Brand", "name": "M25"},
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "MXN",
+        "price": "250",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+    </script>
+
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', 'TU_ID_PIXEL'); // Reemplaza con tu ID real
+      fbq('track', 'PageView');
+    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -18,147 +56,134 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020202; color: #fff; overflow-x: hidden; }
         .font-cyber { font-family: 'Orbitron', sans-serif; }
         
-        /* Estética Glassmorphism */
-        .glass-nav { background: rgba(2, 2, 2, 0.7); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 243, 255, 0.1); }
+        .glass-nav { background: rgba(2, 2, 2, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 243, 255, 0.1); }
         .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
         
-        /* Animaciones */
-        .neon-glow { filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.4)); }
+        .neon-glow { filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.3)); }
         .floating { animation: float 4s ease-in-out infinite; }
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            50% { transform: translateY(-15px) rotate(2deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #020202; }
-        ::-webkit-scrollbar-thumb { background: var(--neon); border-radius: 10px; }
-
-        /* Botón Magnético / Cyber */
         .btn-cyber {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
             clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+            transition: all 0.3s ease;
         }
-        .btn-cyber:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 243, 255, 0.3); }
+        .btn-cyber:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 243, 255, 0.5); }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body>
 
     <nav class="fixed top-0 w-full z-[100] glass-nav">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="font-cyber text-xl md:text-2xl font-black tracking-widest glow-text">
+            <div class="font-cyber text-xl md:text-2xl font-black tracking-widest italic text-white">
                 M25<span class="text-cyan-400">ARMOR</span>
             </div>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleCart()" class="relative p-2 text-cyan-400 transition-transform active:scale-90">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                    </svg>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-cyan-500 text-black text-[10px] font-black h-5 w-5 rounded-full flex items-center justify-center">0</span>
-                </button>
-            </div>
+            <button onclick="toggleCart()" class="relative p-2 text-cyan-400">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                </svg>
+                <span id="cart-count" class="absolute top-0 right-0 bg-cyan-500 text-black text-[10px] font-black h-5 w-5 rounded-full flex items-center justify-center">0</span>
+            </button>
         </div>
     </nav>
 
     <section class="relative min-h-screen flex items-center px-6 pt-20 overflow-hidden">
-        <div class="absolute inset-0 z-0 overflow-hidden">
-            <div class="absolute top-1/4 -left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px]"></div>
-            <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
-            <div data-aos="fade-up" data-aos-duration="1000">
-                <h2 class="font-cyber text-cyan-400 tracking-[0.4em] text-xs md:text-sm mb-4">REVOLUCIÓN AUDITIVA 5.3</h2>
-                <h1 class="font-cyber text-5xl md:text-8xl font-black leading-none mb-6 italic">AUDIO<br><span class="text-transparent" style="-webkit-text-stroke: 1px #00f3ff;">ARMADO</span></h1>
-                <p class="text-gray-400 text-lg md:text-xl max-w-md mb-8">Experimenta el diseño mecánico de armadura con sincronización de imagen en tiempo real para gaming de élite.</p>
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 relative z-10">
+            <div data-aos="fade-right" data-aos-duration="1000">
+                <span class="font-cyber text-cyan-400 text-xs tracking-[0.3em] mb-4 block">BLUETOOTH V5.3 / LOW LATENCY</span>
+                <h1 class="font-cyber text-5xl md:text-8xl font-black mb-6 italic leading-none">
+                    M25 <span class="text-transparent" style="-webkit-text-stroke: 1px #00f3ff;">ULTRA</span>
+                </h1>
+                <p class="text-gray-400 text-lg mb-8 max-w-md">Diseño de estilo mecánico de Ciencia ficción, tapa magnética e iluminación LED. La armadura definitiva para tu música y juegos.</p>
                 
-                <div class="flex flex-wrap items-center gap-6 mb-10">
+                <div class="flex items-center gap-6 mb-10">
                     <div>
-                        <span class="block text-4xl md:text-6xl font-black font-cyber text-white">$250<span class="text-sm font-light">.00 MXN</span></span>
-                        <span class="text-cyan-400 text-xs tracking-widest uppercase font-bold">Precio de Lanzamiento</span>
+                        <span class="text-5xl font-black font-cyber">$250 MXN</span>
+                        <p class="text-gray-500 line-through text-sm">$899 MXN</p>
                     </div>
+                    <div class="bg-cyan-500/10 border border-cyan-500/30 p-2 rounded text-cyan-400 text-[10px] font-bold">OFERTA ACTIVA</div>
                 </div>
 
-                <button onclick="addToCart()" class="btn-cyber w-full md:w-auto bg-cyan-500 text-black font-cyber font-black px-12 py-5 text-sm tracking-widest">
-                    AÑADIR A LA CABINA
+                <button onclick="addToCart()" class="btn-cyber w-full md:w-auto bg-cyan-400 text-black font-cyber font-black px-12 py-5 tracking-widest text-sm">
+                    AÑADIR AL EQUIPO
                 </button>
             </div>
 
-            <div class="relative flex justify-center" data-aos="zoom-in-up" data-aos-duration="1200">
-                <div class="absolute inset-0 bg-cyan-400/5 rounded-full blur-3xl animate-pulse"></div>
-                <img id="hero-img" src="https://i.postimg.cc/YqPgCDmj/21.webp" class="w-full max-w-[450px] floating neon-glow z-10">
+            <div class="flex justify-center items-center" data-aos="zoom-in" data-aos-duration="1200">
+                <img id="main-view" src="https://i.postimg.cc/YqPgCDmj/21.webp" class="w-full max-w-md floating neon-glow">
             </div>
         </div>
     </section>
 
-    <section class="py-10 px-6">
-        <div class="max-w-7xl mx-auto overflow-hidden">
-            <p class="font-cyber text-[10px] text-gray-500 mb-4 tracking-[0.5em] text-center uppercase italic underline decoration-cyan-500">Multivista_360</p>
-            <div class="flex gap-4 overflow-x-auto pb-6 snap-x no-scrollbar">
+    <section class="py-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex gap-4 overflow-x-auto no-scrollbar snap-x pb-4">
                 <script>
-                    const imgs = ["21", "22", "23", "24", "25", "26", "28", "29", "30", "31"];
-                    const container = document.currentScript.parentElement;
-                    imgs.forEach(id => {
-                        const url = `https://i.postimg.cc/${id === '21' ? 'YqPgCDmj' : id === '22' ? '024myXJM' : id === '23' ? '5Nrv2KFX' : id === '24' ? 'yYG98pS3' : id === '25' ? 'y8SRghFV' : id === '26' ? 'FHJSdbjF' : id === '28' ? '9Qq9RPGF' : id === '29' ? '0yJSMGpy' : id === '30' ? 'y8SRghFd' : 'wjsNy5ht'}/${id}.webp`;
-                        container.innerHTML += `<img onclick="changeHero('${url}')" src="${url}" class="h-24 w-24 flex-shrink-0 glass-card p-2 rounded-xl cursor-pointer hover:border-cyan-400 snap-center transition-all duration-300">`;
+                    const imagenes = [
+                        "https://i.postimg.cc/YqPgCDmj/21.webp", "https://i.postimg.cc/024myXJM/22.webp",
+                        "https://i.postimg.cc/5Nrv2KFX/23.webp", "https://i.postimg.cc/yYG98pS3/24.webp",
+                        "https://i.postimg.cc/y8SRghFV/25.webp", "https://i.postimg.cc/FHJSdbjF/26.webp",
+                        "https://i.postimg.cc/9Qq9RPGF/28.webp", "https://i.postimg.cc/0yJSMGpy/29.webp",
+                        "https://i.postimg.cc/y8SRghFd/30.webp", "https://i.postimg.cc/wjsNy5ht/31.webp"
+                    ];
+                    imagenes.forEach(img => {
+                        document.write(`<img onclick="document.getElementById('main-view').src='${img}'" src="${img}" class="h-20 w-20 flex-shrink-0 glass-card p-2 rounded-xl cursor-pointer snap-center hover:border-cyan-400 border border-transparent transition-all">`);
                     });
                 </script>
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-6 bg-[#030303]">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-3 gap-8">
-                <div class="glass-card p-8 rounded-3xl" data-aos="fade-up">
-                    <div class="w-12 h-12 bg-cyan-500/20 text-cyan-400 flex items-center justify-center rounded-xl mb-6">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h3 class="font-cyber text-lg mb-4">POWER BANK</h3>
-                    <p class="text-sm text-gray-500">Estuche de 500mAh con salida USB-C. Carga tus auriculares o da un impulso de emergencia a tu celular.</p>
-                </div>
-                <div class="glass-card p-8 rounded-3xl lg:mt-12" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-12 h-12 bg-purple-500/20 text-purple-400 flex items-center justify-center rounded-xl mb-6">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h3 class="font-cyber text-lg mb-4">TOQUE INTELIGENTE</h3>
-                    <p class="text-sm text-gray-500">Controla música, volumen y llamadas con gestos táctiles. Pantalla digital LED integrada.</p>
-                </div>
-                <div class="glass-card p-8 rounded-3xl" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-12 h-12 bg-green-500/20 text-green-400 flex items-center justify-center rounded-xl mb-6">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <h3 class="font-cyber text-lg mb-4">IPX7 RATING</h3>
-                    <p class="text-sm text-gray-500">Protección total contra lluvia y sudor. Diseñados para durar en condiciones extremas.</p>
+    <section class="py-20 px-6 bg-[#030303]">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="glass-card p-8 rounded-2xl" data-aos="fade-up">
+                <h3 class="font-cyber text-cyan-400 mb-4 text-sm">SISTEMA_AUDIO</h3>
+                <ul class="text-xs space-y-3 text-gray-400">
+                    <li>• Altavoz: 8mm Tracción Completa</li>
+                    <li>• Frecuencia: 20Hz - 20Khz</li>
+                    <li>• Versión: Bluetooth v5.3</li>
+                    <li>• Reducción Ruido: CVC8.0</li>
+                </ul>
+            </div>
+            <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="font-cyber text-purple-400 mb-4 text-sm">ENERGÍA_CORE</h3>
+                <ul class="text-xs space-y-3 text-gray-400">
+                    <li>• Caja de carga: 500mAh</li>
+                    <li>• Duración caja: 150 Horas</li>
+                    <li>• Interfaz: Tipo C</li>
+                    <li>• Función: Power Bank de Emergencia</li>
+                </ul>
+            </div>
+            <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="font-cyber text-white mb-4 text-sm">RESISTENCIA_EXTREMA</h3>
+                <p class="text-xs text-gray-400 mb-4">Nivel de impermeabilización IPX7. Sin miedo al sudor o la lluvia.</p>
+                <div class="h-1 w-full bg-cyan-900 rounded-full overflow-hidden">
+                    <div class="h-full bg-cyan-400 w-[95%]"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-[450px] bg-[#020202] z-[200] translate-x-full transition-transform duration-500 ease-in-out p-8 border-l border-cyan-500/20">
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-[400px] bg-[#020202] z-[200] translate-x-full transition-transform duration-500 p-8 border-l border-cyan-500/30 flex flex-col">
         <div class="flex justify-between items-center mb-10">
-            <span class="font-cyber text-cyan-400 tracking-widest uppercase">Misión_Completada</span>
-            <button onclick="toggleCart()" class="text-white hover:text-cyan-400">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+            <h2 class="font-cyber text-cyan-400 uppercase tracking-widest text-sm">Tu_Cargamento</h2>
+            <button onclick="toggleCart()" class="text-white">✕</button>
         </div>
-        
         <div id="cart-list" class="flex-1 space-y-6">
-            <div id="empty-cart" class="text-center py-20">
-                <p class="text-gray-600 font-cyber text-xs uppercase">No hay equipo seleccionado</p>
-            </div>
+            <p id="empty-msg" class="text-gray-600 font-cyber text-[10px] text-center mt-20 italic italic">SISTEMA VACÍO...</p>
         </div>
-
-        <div class="mt-auto border-t border-white/10 pt-8">
-            <div class="flex justify-between font-cyber text-2xl mb-8">
+        <div class="pt-8 border-t border-white/10">
+            <div class="flex justify-between font-cyber text-xl mb-6">
                 <span>TOTAL:</span>
                 <span id="cart-total" class="text-cyan-400">$0 MXN</span>
             </div>
-            <button onclick="checkout()" class="w-full bg-[#25D366] text-black font-cyber font-black py-6 flex items-center justify-center gap-4 rounded-xl active:scale-95 transition">
-                CONFIRMAR WHATSAPP
+            <button onclick="sendToWhatsapp()" class="w-full bg-[#25D366] text-black font-cyber font-black py-5 rounded-xl flex items-center justify-center gap-3 active:scale-95 transition">
+                CONFIRMAR POR WHATSAPP
             </button>
         </div>
     </div>
@@ -166,59 +191,37 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ once: true });
-        
-        let count = 0;
+        let cartItems = 0;
         const price = 250;
-        const phone = "2204891875";
+        const whatsappNumber = "2204891875";
 
-        function changeHero(src) {
-            const img = document.getElementById('hero-img');
-            img.style.opacity = '0';
-            setTimeout(() => {
-                img.src = src;
-                img.style.opacity = '1';
-            }, 300);
-        }
-
-        function toggleCart() {
-            document.getElementById('cart-sidebar').classList.toggle('translate-x-full');
-        }
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('translate-x-full'); }
 
         function addToCart() {
-            count++;
-            updateCart();
-            // Feedback visual
-            const btn = event.target;
-            btn.innerHTML = "¡ASIGNADO!";
-            btn.classList.add('bg-white');
-            setTimeout(() => {
-                btn.innerHTML = "AÑADIR A LA CABINA";
-                btn.classList.remove('bg-white');
-            }, 1000);
+            cartItems++;
+            updateUI();
+            if(typeof fbq !== 'undefined') fbq('track', 'AddToCart', {value: 250, currency: 'MXN'});
         }
 
-        function updateCart() {
-            document.getElementById('cart-count').innerText = count;
-            document.getElementById('cart-total').innerText = `$${count * price} MXN`;
-            const list = document.getElementById('cart-list');
-            if(count > 0) {
-                list.innerHTML = `
-                    <div class="glass-card p-6 flex items-center gap-6 rounded-2xl border-cyan-400/30">
-                        <img src="https://i.postimg.cc/YqPgCDmj/21.webp" class="w-20 h-20 object-contain">
-                        <div>
-                            <p class="font-cyber text-sm">M25 ARMOR CORE</p>
-                            <p class="text-xs text-gray-500 uppercase mt-1">Cantidad: ${count}</p>
-                            <p class="text-cyan-400 font-bold mt-2">$${count * price} MXN</p>
-                        </div>
+        function updateUI() {
+            document.getElementById('cart-count').innerText = cartItems;
+            document.getElementById('cart-total').innerText = `$${cartItems * price} MXN`;
+            document.getElementById('empty-msg').style.display = 'none';
+            document.getElementById('cart-list').innerHTML = `
+                <div class="glass-card p-4 flex gap-4 rounded-xl border-cyan-500/30">
+                    <img src="https://i.postimg.cc/YqPgCDmj/21.webp" class="h-16 w-16 object-contain">
+                    <div>
+                        <p class="font-cyber text-[10px] text-white">AURICULARES M25 ARMOR</p>
+                        <p class="text-cyan-400 font-bold">${cartItems} x $250</p>
                     </div>
-                `;
-            }
+                </div>`;
         }
 
-        function checkout() {
-            if(count === 0) return alert("Selecciona tus M25 para continuar.");
-            const msg = `🤖 *ORDEN M25 ARMOR*%0A--------------------------%0A*Producto:* Auriculares M25 Negros%0A*Unidades:* ${count}%0A*Total:* $${count * price} MXN%0A--------------------------%0A_Solicito instrucciones para pago y envío._`;
-            window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+        function sendToWhatsapp() {
+            if(cartItems === 0) return alert("Añade productos al carrito.");
+            const total = cartItems * price;
+            const text = `🤖 *NUEVO PEDIDO M25 ARMOR*%0A%0A*Detalle:*%0A- Producto: Audífonos M25 Negros%0A- Unidades: ${cartItems}%0A- Total: $${total} MXN%0A%0A_¿Me podrían dar los datos para el pago?_`;
+            window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
         }
     </script>
 </body>
